@@ -1,0 +1,111 @@
+---
+title: "Final Project"
+author: "Elise Madonna"
+date: "11/18/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+
+load("./High/high_train.RData")
+load("./Medium/med_train.RData")
+load("./Low/low_train.RData")
+load("./High/high_validate.RData")
+load("./Medium/med_validate.RData")
+load("./Low/low_validate.RData")
+```
+
+```{r}
+if (!dir.exists("high_train")){
+    dir.create("high_train")
+} 
+i = 0
+for (name in high_train$var){
+  write.csv(high_train$mat[i], file =  paste("high_train\\", toString(name), ".csv"))
+  i = i + 1
+}
+
+if (!dir.exists("med_train")){
+    dir.create("med_train")
+} 
+i = 0
+for (name in med_train$var){
+  write.csv(med_train$mat[i], file =  paste("med_train\\", toString(name), ".csv"))
+  i = i + 1
+}
+
+if (!dir.exists("low_train")){
+    dir.create("low_train")
+} 
+i = 0
+for (name in low_train$var){
+  write.csv(low_train$mat[i], file =  paste("low_train\\", toString(name), ".csv"))
+  i = i + 1
+}
+
+```
+
+```{r}
+if (!dir.exists("high_validate")){
+    dir.create("high_validate")
+} 
+i = 0
+for (name in high_validate$var){
+  write.csv(high_validate$mat[i], file =  paste("high_validate\\", toString(name), ".csv"))
+  i = i + 1
+}
+
+if (!dir.exists("med_validate")){
+    dir.create("med_validate")
+} 
+i = 0
+for (name in med_validate$var){
+  write.csv(med_validate$mat[i], file =  paste("med_validate\\", toString(name), ".csv"))
+  i = i + 1
+}
+
+if (!dir.exists("low_validate")){
+    dir.create("low_validate")
+} 
+i = 0
+for (name in low_validate$var){
+  write.csv(low_validate$mat[i], file =  paste("low_validate\\", toString(name), ".csv"))
+  i = i + 1
+}
+```
+
+
+```{r}
+# Here are the values for a single dataset
+high_train$mat[[1]]
+# And here are the variable names corresponding to all the datasets in high_train. The first dataset shown above corresponds to the monthly variable BURDENDUST.
+high_train$var
+```
+```{r}
+# Select data and axis labels
+n=170
+selected_dataset <- high_train
+l <- length(selected_dataset$mat)
+latitudes <- round(as.numeric(colnames(selected_dataset$mat[[n]])))
+longitudes <- as.numeric(rownames(selected_dataset$mat[[n]]))
+dataset <- selected_dataset$mat[[n]]
+varname <- selected_dataset$var[n]
+```
+
+```{r}
+# Plot
+image(dataset, main=varname, col = hcl.colors(100, "Blue-Red"),
+      axes=FALSE, xlab="Longitude", ylab="Latitude")
+axis(3, at=seq(0,1, length=7), labels=longitudes[seq(1, 288, length.out=7)],
+     lwd=0, pos=-0.2, outer=T)
+axis(2, at=seq(1,0, length=9), labels=latitudes[seq(1, 192, length.out=9)],
+     lwd=0, pos=0)
+```
+```{r}
+
+```
+
