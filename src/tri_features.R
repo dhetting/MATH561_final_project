@@ -14,15 +14,10 @@ load("./data/Low/low_validate.RData")
 
 ds_list <- list(high_train, med_train, low_train, high_validate, med_validate, low_validate)
 
-classifications = c("high", "med", "low")
-class_index = rep(c(1, 2, 3), 2)
-
 df <- data.frame()
 # loop data sets
 for (i in 1:length(ds_list)) {
   print(paste('dataset ', i, '/', length(ds_list)))
-  
-  classification <- classifications[class_index[i]]
   
   dataset.i <- ds_list[[i]]$mat
   
@@ -60,7 +55,6 @@ for (i in 1:length(ds_list)) {
   }
   
   df <- rbind(df, data.frame(
-    "classification"=rep(classification, length.i),
     "tri_min"=tri_min_feature,
     "tri_max"=tri_max_feature,
     "tri_mean"=tri_mean_feature,
@@ -68,7 +62,6 @@ for (i in 1:length(ds_list)) {
     "tri_range"=tri_range_feature
   ))
 }
-df$classification <- as.factor(df$classification)
 
 # write to CSV
 write.csv(df, 'tri_features.csv', row.names=TRUE)
