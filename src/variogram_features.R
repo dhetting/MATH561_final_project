@@ -26,9 +26,7 @@ for (i in 1:length(ds_list)) {
   dataset.i <- ds_list[[i]]$mat
   
   length.i <- length(dataset.i)
-  
-  id <- rep(NA, length.i)
-  
+
   # create feature placeholders
   var_sill_feature <- rep(NA, length.i)
   var_range_feature <- rep(NA, length.i)
@@ -36,12 +34,14 @@ for (i in 1:length(ds_list)) {
 
   for(j in 1:length.i){
     print(paste('image ', j, '/', length.i))
-    id[j] <- j
-    
+
     # select image j in set i
     image.ij <- ds_list[[i]]$mat[[j]]
 
     # variogram
+    # - convert to raster datatype
+    raster_dataset = raster(image.ij)
+    
     # - convert to spatial dataset
     points_dataset = rasterToPoints(raster_dataset, spatial=TRUE)
     
@@ -57,13 +57,13 @@ for (i in 1:length(ds_list)) {
   
   df <- rbind(df, data.frame(
     "classification"=rep(classification, length.i),
-    "image_id"=id,
     "var_sill"=var_sill_feature,
     "var_range"=var_range_feature,
-    "var_kappa"=var_kappa_feature,
+    "var_kappa"=var_kappa_feature
   ))
 }
 df$classification <- as.factor(df$classification)
 
 # write to CSV
 write.csv(df, 'variogram_features.csv', row.names=TRUE)
+

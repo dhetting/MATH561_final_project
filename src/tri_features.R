@@ -28,8 +28,6 @@ for (i in 1:length(ds_list)) {
   
   length.i <- length(dataset.i)
   
-  id <- rep(NA, length.i)
-  
   # create feature placeholders
   tri_min_feature <- rep(NA, length.i)
   tri_max_feature <- rep(NA, length.i)
@@ -39,8 +37,7 @@ for (i in 1:length(ds_list)) {
 
   for(j in 1:length.i){
     print(paste('image ', j, '/', length.i))
-    id[j] <- j
-    
+
     # select image j in set i
     image.ij <- ds_list[[i]]$mat[[j]]
 
@@ -64,7 +61,6 @@ for (i in 1:length(ds_list)) {
   
   df <- rbind(df, data.frame(
     "classification"=rep(classification, length.i),
-    "image_id"=id,
     "tri_min"=tri_min_feature,
     "tri_max"=tri_max_feature,
     "tri_mean"=tri_mean_feature,
