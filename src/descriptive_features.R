@@ -44,6 +44,10 @@ for (i in 1:length(ds_list)) {
     mean_feature[j] <- mean(image.ij)
     sd_feature[j] <- sd(image.ij)
     range_feature[j] <- abs(max(image.ij) - min(image.ij))
+    
+    sum_feature[j] <- sum(image.ij)
+    
+    zero_feature[j] = sum(image.ij == 0)
   }
   
   df <- rbind(df, data.frame(
