@@ -1,6 +1,6 @@
 rm(list=ls())
 
-#setwd('~/src/MATH561_final_project')
+setwd('~/src/MATH561_final_project')
 
 load("./data/High/high_train.RData")
 load("./data/Medium/med_train.RData")
