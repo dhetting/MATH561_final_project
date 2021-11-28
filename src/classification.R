@@ -33,4 +33,4 @@ for (i in 1:length(ds_list)) {
 df$classification <- as.factor(df$classification)
 
 # write to CSV
-write.csv(df, 'classification.csv', row.names=TRUE)
+write.csv(df, 'data/classification.csv', row.names=TRUE)
