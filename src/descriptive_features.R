@@ -30,7 +30,6 @@ for (i in 1:length(ds_list)) {
   
   sum_feature <- rep(NA, length.i)
   
-  zero_feature <- rep(NA, length.i)
   duplicate_feature <- rep(NA, length.i)
 
   for(j in 1:length.i){
@@ -48,7 +47,6 @@ for (i in 1:length(ds_list)) {
     
     sum_feature[j] <- sum(image.ij)
     
-    zero_feature[j] = sum(image.ij == 0)
     duplicate_feature[j] = sum(duplicated(image.ij))
   }
   
@@ -59,7 +57,6 @@ for (i in 1:length(ds_list)) {
     "sd"=sd_feature,
     "range"=range_feature,
     "sum"=sum_feature,
-    "zeroes"=zero_feature,
     "duplicates"=duplicate_feature
   ))
 }

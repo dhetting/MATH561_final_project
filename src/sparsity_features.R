@@ -24,6 +24,8 @@ for (i in 1:length(ds_list)) {
   
   # create feature placeholders
   g_feature <- rep(NA, length.i)
+  
+  zero_feature <- rep(NA, length.i)
 
   for(j in 1:length.i){
     print(paste('image ', j, '/', length.i))
@@ -32,19 +34,18 @@ for (i in 1:length(ds_list)) {
     image.ij <- ds_list[[i]]$mat[[j]]
     
     # calculate Gini coefficient
-    g_features[j] = Gini(image.ij)
+    g_feature[j] = Gini(image.ij)
+    
+    # count number of zeros
+    zero_feature[j] = sum(image.ij == 0)
+    
   }
   
   df <- rbind(df, data.frame(
-    "min"=min_feature,
-    "max"=max_feature,
-    "mean"=mean_feature,
-    "sd"=sd_feature,
-    "range"=range_feature,
-    "sum"=sum_feature,
-    "zeroes"=zero_feature
+    "g"=g_feature,
+    "zeros"=zero_feature
   ))
 }
 
 # write to CSV
-write.csv(df, 'gini_features.csv', row.names=TRUE)
+write.csv(df, 'sparsity_features.csv', row.names=TRUE)
