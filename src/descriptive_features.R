@@ -1,6 +1,6 @@
 rm(list=ls())
 
-setwd('~/src/MATH561_final_project')
+#setwd('~/src/MATH561_final_project')
 
 load("./data/High/high_train.RData")
 load("./data/Medium/med_train.RData")
@@ -31,6 +31,7 @@ for (i in 1:length(ds_list)) {
   sum_feature <- rep(NA, length.i)
   
   zero_feature <- rep(NA, length.i)
+  duplicate_feature <- rep(NA, length.i)
 
   for(j in 1:length.i){
     print(paste('image ', j, '/', length.i))
@@ -48,6 +49,7 @@ for (i in 1:length(ds_list)) {
     sum_feature[j] <- sum(image.ij)
     
     zero_feature[j] = sum(image.ij == 0)
+    duplicate_feature[j] = sum(duplicated(image.ij))
   }
   
   df <- rbind(df, data.frame(
@@ -57,7 +59,8 @@ for (i in 1:length(ds_list)) {
     "sd"=sd_feature,
     "range"=range_feature,
     "sum"=sum_feature,
-    "zeroes"=zero_feature
+    "zeroes"=zero_feature,
+    "duplicates"=duplicate_feature
   ))
 }
 
