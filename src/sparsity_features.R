@@ -48,4 +48,4 @@ for (i in 1:length(ds_list)) {
 }
 
 # write to CSV
-write.csv(df, 'sparsity_features.csv', row.names=TRUE)
+write.csv(df, 'data/sparsity_features.csv', row.names=TRUE)

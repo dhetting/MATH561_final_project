@@ -62,4 +62,4 @@ for (i in 1:length(ds_list)) {
 }
 
 # write to CSV
-write.csv(df, 'descriptive_features.csv', row.names=TRUE)
+write.csv(df, 'data/descriptive_features.csv', row.names=TRUE)
