@@ -1,6 +1,6 @@
 rm(list=ls())
 
-setwd('~/src/MATH561_final_project')
+#setwd('~/src/MATH561_final_project')
 
 load("./data/High/high_train.RData")
 load("./data/Medium/med_train.RData")
@@ -47,7 +47,7 @@ for (i in 1:length(ds_list)) {
     
     sum_feature[j] <- sum(image.ij)
     
-    duplicate_feature[j] = sum(duplicated(image.ij))
+    duplicate_feature[j] = sum(duplicated(round((image.ij-min(image.ij))/(max(image.ij)-min(image.ij))),digits=3))
   }
   
   df <- rbind(df, data.frame(
