@@ -45,10 +45,13 @@ for (i in 1:length(ds_list)) {
     
   }
   
+  
   df <- rbind(df, data.frame(
     "g"=g_feature,
     "zeros"=zero_feature
   ))
+
+  df$g[is.na(df$g)] <- mean(df$g[!is.na(df$g)])
 }
 
 # write to CSV
@@ -89,6 +92,8 @@ df <- rbind(df, data.frame(
   "g"=g_feature,
   "zeros"=zero_feature
 ))
+
+df$g[is.na(df$g)] <- mean(df$g[!is.na(df$g)])
 
 # write to CSV
 write.csv(df, 'data/sparsity_features_test.csv', row.names=TRUE)
