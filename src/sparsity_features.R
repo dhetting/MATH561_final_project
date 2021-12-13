@@ -3,6 +3,10 @@ rm(list=ls())
 
 setwd('~/src/MATH561_final_project')
 
+#######################
+# process training data
+#######################
+
 load("./data/High/high_train.RData")
 load("./data/Medium/med_train.RData")
 load("./data/Low/low_train.RData")
@@ -49,3 +53,43 @@ for (i in 1:length(ds_list)) {
 
 # write to CSV
 write.csv(df, 'data/sparsity_features.csv', row.names=TRUE)
+
+###################
+# process test data
+###################
+
+load("./data/test.RData")
+
+dataset.i <- test_df$mat
+
+length.i <- length(dataset.i)
+
+# create feature placeholders
+g_feature <- rep(NA, length.i)
+
+zero_feature <- rep(NA, length.i)
+
+df <- data.frame()
+# loop data sets
+for(j in 1:length.i){
+  print(paste('image ', j, '/', length.i))
+  
+  # select image j in set i
+  image.ij <- dataset.i[[j]]
+  
+  # calculate Gini coefficient
+  g_feature[j] = Gini(image.ij)
+  
+  # count number of zeros
+  zero_feature[j] = sum(image.ij == 0)
+
+}
+
+df <- rbind(df, data.frame(
+  "g"=g_feature,
+  "zeros"=zero_feature
+))
+
+# write to CSV
+write.csv(df, 'data/sparsity_features_test.csv', row.names=TRUE)
+
