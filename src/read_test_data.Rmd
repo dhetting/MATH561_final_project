@@ -1,0 +1,27 @@
+---
+title: "Project"
+author: "Elise Madonna"
+date: "12/13/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+load("./test.RData")
+```
+
+```{r}
+if (!dir.exists("test")){
+    dir.create("test")
+}
+
+i = 1
+for (name in test_df$var){
+  write.csv(test_df$mat[i], file =  paste("test\\", toString(name), ".csv"))
+  i = i + 1
+}
+```
+
